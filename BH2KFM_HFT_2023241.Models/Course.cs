@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BH2KFM_HFT_2023241.Models
 {
-    internal class Course
+    public class Course
     {
         [Key]
         public int CourseID { get; set; }

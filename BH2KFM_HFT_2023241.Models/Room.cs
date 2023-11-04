@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BH2KFM_HFT_2023241.Models
 {
-    internal class Room
+    public class Room
     {
         [Key]
         public int DoorID { get; set; }
