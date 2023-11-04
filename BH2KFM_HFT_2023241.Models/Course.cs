@@ -19,6 +19,9 @@ namespace BH2KFM_HFT_2023241.Models
         [ForeignKey(nameof(Room))]
         public int Location { get; set; }
 
+        public virtual Subject Subject { get; set; }
+        public virtual Room Room { get; set; }
+
         public Course(string data)
         {
             string[] d = data.Split(';');

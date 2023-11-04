@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BH2KFM_HFT_2023241.Models
@@ -11,6 +12,8 @@ namespace BH2KFM_HFT_2023241.Models
         public int Capacity { get; set; }
 
         public bool HasProjector { get; set; }
+
+        public virtual ICollection<Course> Courses { get; set; }
 
         public Room(string data)
         {

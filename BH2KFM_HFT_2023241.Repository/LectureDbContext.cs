@@ -29,16 +29,16 @@ namespace BH2KFM_HFT_2023241.Repository
         {
             //Foreign key references
             modelBuilder.Entity<Course>( course => course
-                .HasOne<Subject>()
-                .WithMany()
+                .HasOne(course => course.Subject)
+                .WithMany(subject => subject.Courses)
                 .HasForeignKey(course => course.CourseSubject)
                 .OnDelete(DeleteBehavior.Cascade)
             );
 
             modelBuilder.Entity<Course>(course => course
-                .HasOne<Room>()
-                .WithMany()
-                .HasForeignKey(course => course.CourseSubject)
+                .HasOne(course => course.Room)
+                .WithMany(room => room.Courses)
+                .HasForeignKey(course => course.Location)
                 .OnDelete(DeleteBehavior.Cascade)
             );
 
