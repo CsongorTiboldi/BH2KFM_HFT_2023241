@@ -37,5 +37,10 @@ namespace BH2KFM_HFT_2023241.Models
             CourseSubject = int.Parse(d[3]);
             Location = int.Parse(d[4]);
         }
+
+        public override string ToString()
+        {
+            return $"#{CourseID}, {StartTime.ToString("HH:mm")}-{EndTime.ToString("HH:mm")} ({StartTime.DayOfWeek}), subject ID: #{CourseSubject}, room ID: #{Location}";
+        }
     }
 }

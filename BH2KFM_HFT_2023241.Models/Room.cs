@@ -27,5 +27,10 @@ namespace BH2KFM_HFT_2023241.Models
             HasProjector = bool.Parse(d[2]);
         }
 
+        public override string ToString()
+        {
+            string projector = HasProjector ? "has a projector" : "no projector";
+            return $"#{DoorID}, capacity: {Capacity}, ({projector})"; 
+        }
     }
 }

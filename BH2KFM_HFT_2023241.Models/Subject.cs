@@ -30,5 +30,10 @@ namespace BH2KFM_HFT_2023241.Models
             Credits = int.Parse(d[2]);
             Semester = int.Parse(d[3]);
         }
+
+        public override string ToString()
+        {
+            return $"#{SubjectID}, {Name} ({Credits} credit), semester: {Semester}";
+        }
     }
 }
