@@ -15,6 +15,10 @@ namespace BH2KFM_HFT_2023241.Models
 
         public virtual ICollection<Course> Courses { get; set; }
 
+        public Room()
+        {
+
+        }
         public Room(string data)
         {
             string[] d = data.Split(';');
