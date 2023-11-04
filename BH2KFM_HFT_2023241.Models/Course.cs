@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BH2KFM_HFT_2023241.Models
 {
@@ -12,8 +13,10 @@ namespace BH2KFM_HFT_2023241.Models
 
         public DateTime EndTime { get; set; }
 
+        [ForeignKey(nameof(Subject))]
         public int CourseSubject { get; set; }
 
+        [ForeignKey(nameof(Room))]
         public int Location { get; set; }
 
         public Course(string data)
