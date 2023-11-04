@@ -12,9 +12,6 @@ namespace BH2KFM_HFT_2023241.Models
 
         public bool HasProjector { get; set; }
 
-        public Room()
-        { }
-
         public Room(string data)
         {
             string[] d = data.Split(';');

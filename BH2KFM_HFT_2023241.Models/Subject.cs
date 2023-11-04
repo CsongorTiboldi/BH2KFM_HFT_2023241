@@ -14,10 +14,7 @@ namespace BH2KFM_HFT_2023241.Models
         public int Credits { get; set; }
 
         public int Semester { get; set; }
-
-        public Subject()
-        { }
-
+            
         public Subject(string data)
         {
             string[] d = data.Split(';');
