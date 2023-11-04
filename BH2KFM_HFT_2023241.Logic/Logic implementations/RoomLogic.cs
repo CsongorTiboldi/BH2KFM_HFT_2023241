@@ -6,20 +6,20 @@ using System.Collections.Generic;
 
 namespace BH2KFM_HFT_2023241.Logic
 {
-    public class SubjectLogic
+    public class RoomLogic : IRoomLogic
     {
-        IRepository<Subject> repository;
+        IRepository<Room> repository;
 
-        public SubjectLogic(IRepository<Subject> repository)
+        public RoomLogic(IRepository<Room> repository)
         {
             this.repository = repository;
         }
 
-        public void Create(Subject item)
+        public void Create(Room item)
         {
-            if (item.Credits < 0 || item.Credits > 10)
+            if (item.Capacity < 10)
             {
-                throw new ArgumentOutOfRangeException(nameof(item), "Credit value must not fall outside the range between 0 and 10");
+                throw new ArgumentOutOfRangeException(nameof(item), "Room capacity cannot be smaller than 10");
             }
 
             repository.Create(item);
@@ -32,23 +32,23 @@ namespace BH2KFM_HFT_2023241.Logic
             repository.Delete(id);
         }
 
-        public Subject Read(int id)
+        public Room Read(int id)
         {
             var item = repository.Read(id);
             if (item is null)
             {
-                throw new ArgumentException("Subject does not exist");
+                throw new ArgumentException("Room does not exist");
             }
 
             return item;
         }
 
-        public IEnumerable<Subject> ReadAll()
+        public IEnumerable<Room> ReadAll()
         {
             return repository.ReadAll();
         }
 
-        public void Update(Subject item)
+        public void Update(Room item)
         {
             repository.Update(item);
         }

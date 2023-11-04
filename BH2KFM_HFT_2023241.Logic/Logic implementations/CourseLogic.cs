@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BH2KFM_HFT_2023241.Logic
 {
-    internal class CourseLogic
+    public class CourseLogic : ICourseLogic
     {
         IRepository<Course> repository;
 
