@@ -20,13 +20,13 @@ namespace BH2KFM_HFT_2023241.Models
         [ForeignKey(nameof(Room))]
         public int Location { get; set; }
 
+        [NotMapped]
         public virtual Subject Subject { get; set; }
+
+        [NotMapped]
         public virtual Room Room { get; set; }
 
-        public Course()
-        {
-
-        }
+        public Course() { }
 
         public Course(string data)
         {

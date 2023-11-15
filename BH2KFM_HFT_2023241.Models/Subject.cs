@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BH2KFM_HFT_2023241.Models
 {
@@ -16,12 +17,11 @@ namespace BH2KFM_HFT_2023241.Models
 
         public int Semester { get; set; }
 
+        [NotMapped]
         public virtual ICollection<Course> Courses { get; set; }
 
-        public Subject()
-        {
+        public Subject() { }
 
-        }
         public Subject(string data)
         {
             string[] d = data.Split(';');
