@@ -25,7 +25,7 @@ namespace BH2KFM_HFT_2023241.Client
             var subjectSubmenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () =>
                 {
-                    subjectLogic.ReadAll().ToList().ForEach(t => Console.WriteLine(t));
+                    subjectLogic.ReadAll().ToList().WriteToConsole();
                     Console.ReadLine();
                 })
                 .Add("Exit", ConsoleMenu.Close);
@@ -33,7 +33,7 @@ namespace BH2KFM_HFT_2023241.Client
             var roomSubmenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () =>
                 {
-                    roomLogic.ReadAll().ToList().ForEach(t => Console.WriteLine(t));
+                    roomLogic.ReadAll().ToList().WriteToConsole();
                     Console.ReadLine();
                 })
                 .Add("Exit", ConsoleMenu.Close);
@@ -41,7 +41,7 @@ namespace BH2KFM_HFT_2023241.Client
             var courseSubmenu = new ConsoleMenu(args, level:1)
                 .Add("List", () =>
                 {
-                    courseLogic.ReadAll().ToList().ForEach(t => Console.WriteLine(t));
+                    courseLogic.ReadAll().ToList().WriteToConsole();
                     Console.ReadLine();
                 })
                 .Add("Exit", ConsoleMenu.Close);
