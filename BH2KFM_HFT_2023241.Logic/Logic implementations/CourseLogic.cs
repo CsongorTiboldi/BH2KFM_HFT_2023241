@@ -54,5 +54,49 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             repository.Update(item);
         }
+
+        //non-CRUD methods:
+
+        public int CourseLengthMinutes(int courseId)
+        {
+            var course = this.Read(courseId);
+            return (course.EndTime - course.StartTime).Minutes;
+        }
+
+        public double AverageCourseLengthMinutes()
+        {
+            return this.ReadAll().Average(t => (t.EndTime - t.StartTime).Minutes);
+        }
+
+        public int MaxCourseLengthMinutes()
+        {
+            return this.ReadAll().Max(t => (t.EndTime - t.StartTime).Minutes);
+        }
+
+        public bool AreOverlapping(int courseID_1, int courseID_2)
+        {
+            var course1 = this.Read(courseID_1);
+            var course2 = this.Read(courseID_2);
+
+            return (course1.Location == course2.Location) && (course1.StartTime == course2.StartTime);
+        }
+
+        public bool AnyOverlapping()
+        {
+            var courses = this.ReadAll();
+            
+            foreach (var i in courses)
+            {
+                foreach (var j in courses)
+                {
+                    if (i.Location == j.Location && i.StartTime == j.StartTime && !i.Equals(j))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
     }
 }

@@ -52,5 +52,48 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             repository.Update(item);
         }
+
+        //non-CRUD methods:
+
+        public double AverageCreditValue()
+        {
+            return this.ReadAll().Average(t => t.Credits);
+        }
+
+        public IEnumerable<Subject> SubjectsInSemester(int semesterNumber)
+        {
+            return this.ReadAll().Where(t => t.Semester == semesterNumber);
+        }
+
+        public IEnumerable<Subject> SubjectsWithCreditValue(int creditValue)
+        {
+            return this.ReadAll().Where(t => t.Credits == creditValue);
+        }
+
+        public int MostSubjectSemester()
+        {
+            var res =
+            (
+                from item in this.ReadAll()
+                group item by item.Semester into grp
+                orderby grp.Count() descending
+                select grp.Key
+            ).Take(1);
+
+            return res.ElementAt(0);
+        }
+
+        public int MostCreditSemester()
+        {
+            var res =
+            (
+                from item in this.ReadAll()
+                group item by item.Semester into grp
+                orderby grp.Sum(t => t.Credits) descending
+                select grp.Key
+            ).Take(1);
+
+            return res.ElementAt(0);
+        }
     }
 }

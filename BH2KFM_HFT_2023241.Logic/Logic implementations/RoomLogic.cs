@@ -52,5 +52,32 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             repository.Update(item);
         }
+
+        //non-CRUD methods:
+
+        public IEnumerable<Room> ProjectorRooms()
+        {
+            return this.ReadAll().Where(t => t.HasProjector);
+        }
+
+        public int MaxCapacity()
+        {
+            return this.ReadAll().Max(t => t.Capacity);
+        }
+
+        public Room MaxCapacityRoom()
+        {
+            return this.ReadAll().First(t => t.Capacity == this.MaxCapacity());
+        }
+
+        public double AverageCapacity()
+        {
+            return this.ReadAll().Average(t => t.Capacity);
+        }
+
+        public IEnumerable<Subject> Subjects(int roomId)
+        {
+            return this.Read(roomId).Courses.Select(t => t.Subject).Distinct();
+        }
     }
 }
