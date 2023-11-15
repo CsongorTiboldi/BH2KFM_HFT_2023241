@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace BH2KFM_HFT_2023241.Models
 {
@@ -41,6 +42,27 @@ namespace BH2KFM_HFT_2023241.Models
         public override string ToString()
         {
             return $"#{CourseID}, {StartTime.ToString("HH:mm")}-{EndTime.ToString("HH:mm")} ({StartTime.DayOfWeek}), subject ID: #{CourseSubject}, room ID: #{Location}";
+        }
+
+        public override bool Equals(object obj)
+        {
+            Course b = obj as Course;
+            if (b is null)
+            {
+                return false;
+            }
+
+            return
+                this.CourseID == b.CourseID &&
+                this.StartTime == b.StartTime &&
+                this.EndTime == b.EndTime &&
+                this.CourseSubject == b.CourseSubject &&
+                this.Location == b.Location;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.CourseID, this.StartTime, this.EndTime, this.CourseSubject, this.Location); ;
         }
     }
 }

@@ -32,5 +32,24 @@ namespace BH2KFM_HFT_2023241.Models
             string projector = HasProjector ? "has a projector" : "no projector";
             return $"#{DoorID}, capacity: {Capacity}, ({projector})"; 
         }
+
+        public override bool Equals(object obj)
+        {
+            Room b = obj as Room;
+            if (b is null)
+            {
+                return false;
+            }
+
+            return
+                this.DoorID == b.DoorID &&
+                this.Capacity == b.Capacity &&
+                this.HasProjector == b.HasProjector;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.DoorID, this.Capacity, this.HasProjector);
+        }
     }
 }

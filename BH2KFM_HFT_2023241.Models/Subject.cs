@@ -35,5 +35,25 @@ namespace BH2KFM_HFT_2023241.Models
         {
             return $"#{SubjectID}, {Name} ({Credits} credit), semester: {Semester}";
         }
+
+        public override bool Equals(object obj)
+        {
+            Subject b = obj as Subject;
+            if (b is null)
+            {
+                return false;
+            }
+
+            return
+                this.SubjectID == b.SubjectID &&
+                this.Name.Equals(b.Name) &&
+                this.Credits == b.Credits &&
+                this.Semester == b.Semester;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(this.SubjectID, this.Name, this.Credits, this.Semester);
+        }
     }
 }
