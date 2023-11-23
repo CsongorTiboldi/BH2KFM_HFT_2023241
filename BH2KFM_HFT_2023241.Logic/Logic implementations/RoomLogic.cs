@@ -65,9 +65,9 @@ namespace BH2KFM_HFT_2023241.Logic
             return this.ReadAll().Max(t => t.Capacity);
         }
 
-        public Room MaxCapacityRoom()
+        public IEnumerable<Room> LargestCapacityRooms()
         {
-            return this.ReadAll().First(t => t.Capacity == this.MaxCapacity());
+            return this.ReadAll().Where(t => t.Capacity == this.MaxCapacity());
         }
 
         public double AverageCapacity()
