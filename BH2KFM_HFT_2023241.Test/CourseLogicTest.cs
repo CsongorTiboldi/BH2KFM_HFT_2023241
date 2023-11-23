@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace BH2KFM_HFT_2023241.Test
 {
     [TestFixture]
-    public class CoursetLogicTest
+    public class CourseLogicTest
     {
         Mock<IRepository<Course>> mockCourseRepo;
         CourseLogic cl;

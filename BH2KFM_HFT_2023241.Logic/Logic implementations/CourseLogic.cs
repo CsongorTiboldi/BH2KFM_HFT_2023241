@@ -60,17 +60,17 @@ namespace BH2KFM_HFT_2023241.Logic
         public int CourseLengthMinutes(int courseId)
         {
             var course = this.Read(courseId);
-            return (course.EndTime - course.StartTime).Minutes;
+            return (int) (course.EndTime - course.StartTime).TotalMinutes;
         }
 
         public double AverageCourseLengthMinutes()
         {
-            return this.ReadAll().Average(t => (t.EndTime - t.StartTime).Minutes);
+            return this.ReadAll().Average(t => (t.EndTime - t.StartTime).TotalMinutes);
         }
 
         public int MaxCourseLengthMinutes()
         {
-            return this.ReadAll().Max(t => (t.EndTime - t.StartTime).Minutes);
+            return (int) this.ReadAll().Max(t => (t.EndTime - t.StartTime).TotalMinutes);
         }
 
         public bool AreOverlapping(int courseID_1, int courseID_2)
@@ -78,7 +78,10 @@ namespace BH2KFM_HFT_2023241.Logic
             var course1 = this.Read(courseID_1);
             var course2 = this.Read(courseID_2);
 
-            return (course1.Location == course2.Location) && (course1.StartTime == course2.StartTime);
+            return
+                course1.Location == course2.Location &&
+                course1.StartTime < course2.EndTime &&
+                course2.StartTime < course1.EndTime;
         }
 
         public bool AnyOverlapping()
@@ -89,7 +92,7 @@ namespace BH2KFM_HFT_2023241.Logic
             {
                 foreach (var j in courses)
                 {
-                    if (i.Location == j.Location && i.StartTime == j.StartTime && !i.Equals(j))
+                    if (!i.Equals(j) && i.Location == j.Location && i.StartTime < j.EndTime && j.StartTime < i.EndTime)
                     {
                         return true;
                     }
