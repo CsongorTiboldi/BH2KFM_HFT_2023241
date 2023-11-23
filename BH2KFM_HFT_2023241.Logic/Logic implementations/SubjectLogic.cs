@@ -70,17 +70,9 @@ namespace BH2KFM_HFT_2023241.Logic
             return this.ReadAll().Where(t => t.Credits == creditValue);
         }
 
-        public int MostSubjectSemester()
+        public IEnumerable<Room> Rooms(int subjectId)
         {
-            var res =
-            (
-                from item in this.ReadAll()
-                group item by item.Semester into grp
-                orderby grp.Count() descending
-                select grp.Key
-            ).Take(1);
-
-            return res.ElementAt(0);
+            return this.Read(subjectId).Courses.Select(t => t.Room).Distinct();
         }
 
         public int MostCreditSemester()
