@@ -1,3 +1,6 @@
+using BH2KFM_HFT_2023241.Logic;
+using BH2KFM_HFT_2023241.Models;
+using BH2KFM_HFT_2023241.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +28,16 @@ namespace BH2KFM_HFT_2023241.Endpoint
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<LectureDbContext>();
+
+            services.AddTransient<IRepository<Room>, RoomRepository>();
+            services.AddTransient<IRepository<Subject>, SubjectRepository>();
+            services.AddTransient<IRepository<Course>, CourseRepository>();
+
+            services.AddTransient<IRoomLogic, RoomLogic>();
+            services.AddTransient<ISubjectLogic, SubjectLogic>();
+            services.AddTransient<ICourseLogic, CourseLogic>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
