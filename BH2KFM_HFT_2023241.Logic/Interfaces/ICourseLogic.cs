@@ -1,5 +1,6 @@
 ﻿using BH2KFM_HFT_2023241.Models;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 
 namespace BH2KFM_HFT_2023241.Logic
 {
@@ -10,5 +11,12 @@ namespace BH2KFM_HFT_2023241.Logic
         Course Read(int id);
         IEnumerable<Course> ReadAll();
         void Update(Course item);
+
+        //non-CRUD methods:
+        int CourseLengthMinutes(int courseId);
+        double AverageCourseLengthMinutes();
+        int MaxCourseLengthMinutes();
+        bool AreOverlapping(int courseID_1, int courseID_2);
+        bool AnyOverlapping();
     }
 }

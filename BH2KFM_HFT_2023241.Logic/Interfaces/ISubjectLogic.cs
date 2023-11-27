@@ -10,5 +10,12 @@ namespace BH2KFM_HFT_2023241.Logic
         Subject Read(int id);
         IEnumerable<Subject> ReadAll();
         void Update(Subject item);
+
+        //non-CRUD methods:
+        double AverageCreditValue();
+        IEnumerable<Subject> SubjectsInSemester(int semesterNumber);
+        IEnumerable<Subject> SubjectsWithCreditValue(int creditValue);
+        IEnumerable<Room> Rooms(int subjectId);
+        int MostCreditSemester();
     }
 }

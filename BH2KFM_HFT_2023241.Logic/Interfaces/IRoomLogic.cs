@@ -10,5 +10,12 @@ namespace BH2KFM_HFT_2023241.Logic
         Room Read(int id);
         IEnumerable<Room> ReadAll();
         void Update(Room item);
+
+        //non-CRUD methods:
+        IEnumerable<Room> ProjectorRooms();
+        int MaxCapacity();
+        IEnumerable<Room> LargestCapacityRooms();
+        double AverageCapacity();
+        IEnumerable<Subject> Subjects(int roomId);
     }
 }
