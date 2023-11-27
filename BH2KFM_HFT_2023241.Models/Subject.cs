@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BH2KFM_HFT_2023241.Models
 {
@@ -18,6 +19,7 @@ namespace BH2KFM_HFT_2023241.Models
         public int Semester { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual ICollection<Course> Courses { get; set; }
 
         public Subject() { }
