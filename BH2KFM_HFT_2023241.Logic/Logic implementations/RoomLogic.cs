@@ -52,6 +52,11 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             this.Read(item.DoorID);
 
+            if (item.Capacity < 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(item), "Room capacity cannot be smaller than 10");
+            }
+
             repository.Update(item);
         }
 

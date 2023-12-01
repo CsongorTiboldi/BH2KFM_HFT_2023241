@@ -52,6 +52,11 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             this.Read(item.SubjectID);
 
+            if (item.Credits < 0 || item.Credits > 10)
+            {
+                throw new ArgumentOutOfRangeException(nameof(item), "Credit value must not fall outside the range between 0 and 10");
+            }
+
             repository.Update(item);
         }
 

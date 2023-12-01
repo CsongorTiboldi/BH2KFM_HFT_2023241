@@ -54,6 +54,11 @@ namespace BH2KFM_HFT_2023241.Logic
         {
             this.Read(item.CourseID);
 
+            if (item.EndTime < item.StartTime)
+            {
+                throw new ArgumentException("Course cannot end before it even started");
+            }
+
             repository.Update(item);
         }
 
