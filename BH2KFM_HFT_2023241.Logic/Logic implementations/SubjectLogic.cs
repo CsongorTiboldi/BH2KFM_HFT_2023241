@@ -50,6 +50,8 @@ namespace BH2KFM_HFT_2023241.Logic
 
         public void Update(Subject item)
         {
+            this.Read(item.SubjectID);
+
             repository.Update(item);
         }
 

@@ -50,6 +50,8 @@ namespace BH2KFM_HFT_2023241.Logic
 
         public void Update(Room item)
         {
+            this.Read(item.DoorID);
+
             repository.Update(item);
         }
 
