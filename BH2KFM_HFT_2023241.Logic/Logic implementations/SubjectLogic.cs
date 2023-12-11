@@ -3,6 +3,7 @@ using BH2KFM_HFT_2023241.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace BH2KFM_HFT_2023241.Logic
 {
@@ -72,9 +73,9 @@ namespace BH2KFM_HFT_2023241.Logic
             return this.ReadAll().Where(t => t.Semester == semesterNumber);
         }
 
-        public IEnumerable<Subject> SubjectsWithCreditValue(int creditValue)
+        public bool IsSubjectInAnyProjectorRoom(int subjectID)
         {
-            return this.ReadAll().Where(t => t.Credits == creditValue);
+            return this.Read(subjectID).Courses.Any(t => t.Room.HasProjector);
         }
 
         public IEnumerable<Room> Rooms(int subjectId)

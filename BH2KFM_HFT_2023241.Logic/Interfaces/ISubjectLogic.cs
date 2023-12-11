@@ -14,8 +14,8 @@ namespace BH2KFM_HFT_2023241.Logic
         //non-CRUD methods:
         double AverageCreditValue();
         IEnumerable<Subject> SubjectsInSemester(int semesterNumber);
-        IEnumerable<Subject> SubjectsWithCreditValue(int creditValue);
-        IEnumerable<Room> Rooms(int subjectId);
+        bool IsSubjectInAnyProjectorRoom(int id);
+        IEnumerable<Room> Rooms(int id);
         int MostCreditSemester();
     }
 }
