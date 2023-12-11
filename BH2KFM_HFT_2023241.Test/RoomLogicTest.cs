@@ -42,9 +42,9 @@ namespace BH2KFM_HFT_2023241.Test
                     HasProjector = false,
                     Courses = new List<Course>()
                     {
-                        new Course(){CourseID = 1, Subject = new Subject(){ SubjectID = 1, Name = "Literature", Credits = 4}},
-                        new Course(){CourseID = 2, Subject = new Subject(){ SubjectID = 1, Name = "Geography", Credits = 2}},
-                        new Course(){CourseID = 3, Subject = new Subject(){ SubjectID = 2, Name = "Philosophy", Credits = 6}},
+                        new Course(){CourseID = 1, Subject = new Subject(){ SubjectID = 1, Name = "Literature", Credits = 4, Semester = 1}},
+                        new Course(){CourseID = 2, Subject = new Subject(){ SubjectID = 1, Name = "Geography", Credits = 2, Semester = 2}},
+                        new Course(){CourseID = 3, Subject = new Subject(){ SubjectID = 2, Name = "Philosophy", Credits = 6, Semester = 4}},
                     }
                 },
                 new Room()
@@ -127,30 +127,23 @@ namespace BH2KFM_HFT_2023241.Test
         }
 
         [Test]
-        public void LargestCapacityRooms_Test()
+        public void AverageSubjectCreditInRoom_Test()
         {
-            //ARRANGE
-            var expected = new List<Room>()
-            {
-                new Room(){ DoorID = 2, Capacity = 50, HasProjector = true},
-                new Room(){ DoorID = 4, Capacity = 50, HasProjector = true},
-            }.AsEnumerable();
-
             //ACT
-            var result = rl.LargestCapacityRooms();
+            var result = rl.AverageSubjectCreditInRoom(3);
 
             //ASSERT
-            Assert.AreEqual(result, expected);
+            Assert.That(result, Is.EqualTo(4));
         }
 
         [Test]
-        public void AverageCapacity_Test()
+        public void MaxSubjectSemesterInRoom_Test()
         {
             //ACT
-            var result = rl.AverageCapacity();
+            var result = rl.MaxSubjectSemesterInRoom(3);
 
             //ASSERT
-            Assert.That(result, Is.EqualTo(32.5));
+            Assert.That(result, Is.EqualTo(4));
         }
 
         [Test]
@@ -159,9 +152,9 @@ namespace BH2KFM_HFT_2023241.Test
             //ARRANGE
             var expected = new List<Subject>()
             {
-                new Subject() { SubjectID = 1, Name = "Literature", Credits = 4},
-                new Subject() { SubjectID = 1, Name = "Geography", Credits = 2 },
-                new Subject() { SubjectID = 2, Name = "Philosophy", Credits = 6 }
+                new Subject(){ SubjectID = 1, Name = "Literature", Credits = 4, Semester = 1},
+                new Subject(){ SubjectID = 1, Name = "Geography", Credits = 2, Semester = 2},
+                new Subject(){ SubjectID = 2, Name = "Philosophy", Credits = 6, Semester = 4}
             }.AsEnumerable();
 
             //ACT

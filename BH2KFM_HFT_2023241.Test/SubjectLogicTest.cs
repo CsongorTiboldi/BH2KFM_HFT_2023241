@@ -115,22 +115,14 @@ namespace BH2KFM_HFT_2023241.Test
         }
 
         [Test]
-        public void SubjectsWithCreditValue_Test()
+        public void IsSubjectInAnyProjectorRoom_Test()
         {
-            //ARRANGE
-            var expected = new List<Subject>()
-            {
-                new Subject(){SubjectID = 1, Name = "Organic chemistry", Credits = 5, Semester = 1 },
-                new Subject(){SubjectID = 2, Name = "Algebra", Credits = 5, Semester = 2 }
-            }.AsEnumerable();
-
             //ACT
-            var result = sl.SubjectsWithCreditValue(5);
+            var result = sl.IsSubjectInAnyProjectorRoom(4);
 
             //ASSERT
-            Assert.AreEqual(result, expected);
+            Assert.That(result, Is.EqualTo(true));
         }
-
 
         [Test]
         public void Rooms_Test()
