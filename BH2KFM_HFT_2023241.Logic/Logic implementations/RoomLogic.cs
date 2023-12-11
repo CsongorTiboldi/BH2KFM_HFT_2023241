@@ -3,6 +3,7 @@ using BH2KFM_HFT_2023241.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace BH2KFM_HFT_2023241.Logic
 {
@@ -72,14 +73,14 @@ namespace BH2KFM_HFT_2023241.Logic
             return this.ReadAll().Max(t => t.Capacity);
         }
 
-        public IEnumerable<Room> LargestCapacityRooms()
+        public double AverageSubjectCreditInRoom(int roomID)
         {
-            return this.ReadAll().Where(t => t.Capacity == this.MaxCapacity());
+            return this.Read(roomID).Courses.Average(t => t.Subject.Credits);
         }
 
-        public double AverageCapacity()
+        public int MaxSubjectSemesterInRoom(int roomID)
         {
-            return this.ReadAll().Average(t => t.Capacity);
+            return this.Read(roomID).Courses.Max(t => t.Subject.Semester);
         }
 
         public IEnumerable<Subject> Subjects(int roomId)

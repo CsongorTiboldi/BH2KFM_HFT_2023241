@@ -14,8 +14,8 @@ namespace BH2KFM_HFT_2023241.Logic
         //non-CRUD methods:
         IEnumerable<Room> ProjectorRooms();
         int MaxCapacity();
-        IEnumerable<Room> LargestCapacityRooms();
-        double AverageCapacity();
-        IEnumerable<Subject> Subjects(int roomId);
+        double AverageSubjectCreditInRoom(int id);
+        int MaxSubjectSemesterInRoom(int id);
+        IEnumerable<Subject> Subjects(int id);
     }
 }
