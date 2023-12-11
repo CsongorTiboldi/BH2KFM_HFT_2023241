@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BH2KFM_HFT_2023241.Client
 {
@@ -11,10 +12,12 @@ namespace BH2KFM_HFT_2023241.Client
     {
         public static void Create<T>() where T : class
         {
+            string model = typeof(T).Name;
             try
             {
                 T item = ModelFromConsole<T>();
-                Program.rest.Post<T>(item, typeof(T).Name);
+                Program.rest.Post<T>(item, model);
+                Console.WriteLine($"New {model} created successfully!");
             }
             catch (Exception e)
             {
@@ -27,9 +30,9 @@ namespace BH2KFM_HFT_2023241.Client
         {
             string model = typeof(T).Name;
             Console.Write($"ID of {model} to read: ");
-            int id = int.Parse(Console.ReadLine());
             try
             {
+                int id = int.Parse(Console.ReadLine());
                 Console.WriteLine(Program.rest.GetSingle<T>($"{model}/{id}"));
             }
             catch (Exception e)
@@ -41,9 +44,11 @@ namespace BH2KFM_HFT_2023241.Client
 
         public static void ReadAll<T>() where T : class
         {
+            string model = typeof(T).Name;
+            Console.WriteLine($"List of every {model}:");
             try
             {
-                Program.rest.Get<T>(typeof(T).Name).WriteToConsole();
+                Program.rest.Get<T>(model).WriteToConsole();
             }
             catch (Exception e)
             {
@@ -54,10 +59,12 @@ namespace BH2KFM_HFT_2023241.Client
 
         public static void Update<T>() where T : class
         {
+            string model = typeof(T).Name;
             try
             {
                 T item = ModelFromConsole<T>();
-                Program.rest.Put<T>(item, typeof(T).Name);
+                Program.rest.Put<T>(item, model); ;
+                Console.WriteLine($"{model} updated successfully!");
             }
             catch (Exception e)
             {
@@ -70,9 +77,9 @@ namespace BH2KFM_HFT_2023241.Client
         {
             string model = typeof(T).Name;
             Console.Write($"ID of {model} to delete: ");
-            int id = int.Parse(Console.ReadLine());
             try
             {
+                int id = int.Parse(Console.ReadLine());
                 Program.rest.Delete(id, model);
             }
             catch (Exception e)
@@ -84,7 +91,7 @@ namespace BH2KFM_HFT_2023241.Client
 
         static T ModelFromConsole<T>() where T : class
         {
-            Console.WriteLine("Fill out the required fields with appropriate data.\r\nUse ddd HH:mm format for time types (i.e. fri 14:30 -> Friday, 2:30 PM)\r\n");
+            Console.WriteLine($"Reading {typeof(T).Name} from console...\r\nFill out the required fields with appropriate data!\r\nUse ddd HH:mm format for time fields (i.e. fri 14:30 -> Friday, 2:30 PM)\r\n");
 
             T item = (T)Activator.CreateInstance(typeof(T), null);
 
