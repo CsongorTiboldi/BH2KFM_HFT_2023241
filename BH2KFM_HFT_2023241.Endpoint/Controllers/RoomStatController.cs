@@ -28,16 +28,16 @@ namespace BH2KFM_HFT_2023241.Endpoint.Controllers
             return this.logic.MaxCapacity();
         }
 
-        [HttpGet]
-        public IEnumerable<Room> LargestCapacityRooms()
+        [HttpGet("{roomId}")]
+        public double AverageSubjectCreditInRoom(int roomId)
         {
-            return this.logic.LargestCapacityRooms();
+            return this.logic.AverageSubjectCreditInRoom(roomId);
         }
 
-        [HttpGet]
-        public double AverageCapacity()
+        [HttpGet("{roomId}")]
+        public int MaxSubjectSemesterInRoom(int roomId)
         {
-            return this.logic.AverageCapacity();
+            return this.logic.MaxSubjectSemesterInRoom(roomId);
         }
 
         [HttpGet("{roomId}")]

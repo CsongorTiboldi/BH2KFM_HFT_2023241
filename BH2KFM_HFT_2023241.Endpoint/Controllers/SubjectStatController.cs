@@ -28,10 +28,10 @@ namespace BH2KFM_HFT_2023241.Endpoint.Controllers
             return this.logic.SubjectsInSemester(semester);
         }
 
-        [HttpGet("{credit}")]
-        public IEnumerable<Subject> SubjectsWithCreditValue(int credit)
+        [HttpGet("{subject}")]
+        public bool IsSubjectInAnyProjectorRoom(int subject)
         {
-            return this.logic.SubjectsWithCreditValue(credit);
+            return this.logic.IsSubjectInAnyProjectorRoom(subject);
         }
 
         [HttpGet("{subject}")]
