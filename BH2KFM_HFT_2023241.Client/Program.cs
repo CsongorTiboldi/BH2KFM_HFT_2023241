@@ -16,17 +16,19 @@ namespace BH2KFM_HFT_2023241.Client
             rest = new RestService("http://localhost:60321/");
 
 
+            //Console submenu for subjects:
+            #region subjectSubmenu
             var subjectSubmenu = new ConsoleMenu(args, level: 1)
                 .Add("Create", action: GenericCRUD.Create<Subject>)
                 .Add("Read", action: GenericCRUD.Read<Subject>)
                 .Add("ReadAll", action: GenericCRUD.ReadAll<Subject>)
                 .Add("Update", action: GenericCRUD.Update<Subject>)
                 .Add("Delete", action: GenericCRUD.Delete<Subject>)
-                .Add("AverageCreditValue", () =>
+                .Add("AverageCreditValue", action: () =>
                 {
                     try
                     {
-                        Console.WriteLine("Average credit value of a subject: " + rest.GetSingle<double>("SubjectStat/AverageCreditValue"));
+                        Console.WriteLine("Average credit value of currently stored subjects: " + rest.GetSingle<double>("SubjectStat/AverageCreditValue"));
                     }
                     catch (Exception e)
                     {
@@ -34,12 +36,13 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("SubjectsInSemester", () =>
+                .Add("SubjectsInSemester", action: () =>
                 {
                     Console.Write("Which semeseter: ");
-                    int semester = int.Parse(Console.ReadLine());
                     try
                     {
+                        int semester = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Subjects in this semester:");
                         rest.Get<Subject>($"SubjectStat/SubjectsInSemester/{semester}").WriteToConsole();
                     }
                     catch (Exception e)
@@ -48,13 +51,20 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("SubjectsWithCreditValue", () =>
+                .Add("IsSubjectInAnyProjectorRoom", action: () =>
                 {
-                    Console.Write("Credits: ");
-                    int credits = int.Parse(Console.ReadLine());
+                    Console.Write("Which subject (ID): ");
                     try
                     {
-                        rest.Get<Subject>($"SubjectStat/SubjectsWithCreditValue/{credits}").WriteToConsole();
+                        int id = int.Parse(Console.ReadLine());
+                        if (rest.GetSingle<bool>($"SubjectStat/IsSubjectInAnyProjectorRoom/{id}"))
+                        {
+                            Console.WriteLine("This subject has at least one course associated with it that is taking place in a room with a projector.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("This subject is not associated with any course taking place in a room with a projector.");
+                        }
                     }
                     catch (Exception e)
                     {
@@ -62,12 +72,13 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("Rooms", () =>
+                .Add("Rooms", action: () =>
                 {
-                    Console.Write("Which subject: ");
-                    int id = int.Parse(Console.ReadLine());
+                    Console.Write("Which subject (ID): ");
                     try
                     {
+                        int id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("This subject is taught in the following rooms:");
                         rest.Get<Room>($"SubjectStat/Rooms/{id}").WriteToConsole();
                     }
                     catch (Exception e)
@@ -76,7 +87,7 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("MostCreditSemester", () =>
+                .Add("MostCreditSemester", action: () =>
                 {
                     try
                     {
@@ -88,17 +99,21 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("< Back", ConsoleMenu.Close);
+                .Add("< Back", action: ConsoleMenu.Close);
+            #endregion subjectSubmenu
 
 
+            //Console submenu for rooms:
+            #region roomSubmenu
             var roomSubmenu = new ConsoleMenu(args, level: 1)
                 .Add("Create", action: GenericCRUD.Create<Room>)
                 .Add("Read", action: GenericCRUD.Read<Room>)
                 .Add("ReadAll", action: GenericCRUD.ReadAll<Room>)
                 .Add("Update", action: GenericCRUD.Update<Room>)
                 .Add("Delete", action: GenericCRUD.Delete<Room>)
-                .Add("ProjectorRooms", () => 
+                .Add("ProjectorRooms", action: () => 
                 {
+                    Console.WriteLine("Rooms with projectors:");
                     try
                     {
                         rest.Get<Room>("RoomStat/ProjectorRooms").WriteToConsole();
@@ -109,11 +124,11 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("MaxCapacity", () => 
+                .Add("MaxCapacity", action: () => 
                 {
                     try
                     {
-                        Console.WriteLine("The maximum room capacity: " + rest.GetSingle<int>("RoomStat/MaxCapacity"));
+                        Console.WriteLine("The capacity of the largest room is " + rest.GetSingle<int>("RoomStat/MaxCapacity"));
                     }
                     catch (Exception e)
                     {
@@ -121,12 +136,13 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("LargestCapacityRooms", () => 
+                .Add("AverageSubjectCreditInRoom", action: () =>
                 {
-                    Console.WriteLine("Rooms with largest capacity:");
+                    Console.Write("Which room (ID): ");
                     try
                     {
-                        rest.Get<Room>("RoomStat/LargestCapacityRooms").WriteToConsole();
+                        int id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Average credit value of subjects taking place in this room: " + rest.GetSingle<double>($"RoomStat/AverageSubjectCreditInRoom/{id}"));
                     }
                     catch (Exception e)
                     {
@@ -134,11 +150,13 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("AverageCapacity", () => 
+                .Add("MaxSubjectSemesterInRoom", action: () =>
                 {
+                    Console.Write("Which room (ID): ");
                     try
                     {
-                        Console.WriteLine("Average room capacity: " + rest.GetSingle<double>("RoomStat/AverageCapacity"));
+                        int id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Maximum semester number among subjects taking place in this room: " + rest.GetSingle<int>($"RoomStat/MaxSubjectSemesterInRoom/{id}"));
                     }
                     catch (Exception e)
                     {
@@ -146,12 +164,13 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("Subjects", () => 
+                .Add("Subjects", action: () => 
                 {
-                    Console.Write("Which room: ");
-                    int id = int.Parse(Console.ReadLine());
+                    Console.Write("Which room (ID): ");
                     try
                     {
+                        int id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("Subjects taught in this room:");
                         rest.Get<Subject>($"RoomStat/Subjects/{id}").WriteToConsole();
                     }
                     catch (Exception e)
@@ -160,22 +179,25 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("< Back", ConsoleMenu.Close);
+                .Add("< Back", action: ConsoleMenu.Close);
+            #endregion roomSubmenu
 
 
+            //Console submenu for courses:
+            #region courseSubmenu
             var courseSubmenu = new ConsoleMenu(args, level: 1)
                 .Add("Create", action: GenericCRUD.Create<Course>)
                 .Add("Read", action: GenericCRUD.Read<Course>)
                 .Add("ReadAll", action: GenericCRUD.ReadAll<Course>)
                 .Add("Update", action: GenericCRUD.Update<Course>)
                 .Add("Delete", action: GenericCRUD.Delete<Course>)
-                .Add("CourseLengthMinutes", () => 
+                .Add("CourseLengthMinutes", action: () => 
                 {
-                    Console.Write("Which course: ");
-                    int id = int.Parse(Console.ReadLine());
+                    Console.Write("Which course (ID): ");
                     try
                     {
-                        Console.WriteLine("Length of this course: " + rest.GetSingle<int>($"CourseStat/CourseLengthMinutes/{id}"));
+                        int id = int.Parse(Console.ReadLine());
+                        Console.WriteLine("This course is " + rest.GetSingle<int>($"CourseStat/CourseLengthMinutes/{id}" + " minutes long."));
                     }
                     catch (Exception e)
                     {
@@ -183,11 +205,11 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("AverageCourseLengthMinutes", () => 
+                .Add("AverageCourseLengthMinutes", action: () => 
                 {
                     try
                     {
-                        Console.WriteLine("Average length of a course in minutes: " + rest.GetSingle<double>("CourseStat/AverageCourseLengthMinutes"));
+                        Console.WriteLine("A course is " + rest.GetSingle<double>("CourseStat/AverageCourseLengthMinutes") + " minutes long on average.");
                     }
                     catch (Exception e)
                     {
@@ -195,11 +217,11 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("MaxCourseLengthMinutes", () => 
+                .Add("MaxCourseLengthMinutes", action: () => 
                 {
                     try
                     {
-                        Console.WriteLine("Lenght of the longest course in minutes: " + rest.GetSingle<double>("CourseStat/MaxCourseLengthMinutes"));
+                        Console.WriteLine("The longest course is " + rest.GetSingle<int>("CourseStat/MaxCourseLengthMinutes") + " minutes long.");
                     }
                     catch (Exception e)
                     {
@@ -207,15 +229,15 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("AreOverlapping", () => 
+                .Add("AreOverlapping", action: () => 
                 {
-                    Console.Write("First course: ");
-                    int id1 = int.Parse(Console.ReadLine());
-                    Console.Write("Second course: ");
-                    int id2 = int.Parse(Console.ReadLine());
+                    try
+                    {
+                        Console.Write("First course (ID): ");
+                        int id1 = int.Parse(Console.ReadLine());
+                        Console.Write("Second course (ID): ");
+                        int id2 = int.Parse(Console.ReadLine());
 
-                    try
-                    {
                         if (rest.GetSingle<bool>($"CourseStat/AreOverlapping?course1={id1}&course2={id2}"))
                         {
                             Console.WriteLine("These two courses are overlapping!");
@@ -231,7 +253,7 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("AnyOverlapping", () => 
+                .Add("AnyOverlapping", action: () => 
                 {
                     try
                     {
@@ -250,16 +272,20 @@ namespace BH2KFM_HFT_2023241.Client
                     }
                     ConsoleContinuation();
                 })
-                .Add("< Back", ConsoleMenu.Close);
+                .Add("< Back", action: ConsoleMenu.Close);
+            #endregion courseSubmenu
 
 
+            //Main console menu:
+            #region mainMenu
             var mainMenu = new ConsoleMenu(args, level: 0)
-                .Add("Subjects", () => subjectSubmenu.Show())
-                .Add("Rooms", () => roomSubmenu.Show())
-                .Add("Courses", () => courseSubmenu.Show())
-                .Add("Exit", ConsoleMenu.Close);
+                .Add("Subjects", action: () => subjectSubmenu.Show())
+                .Add("Rooms", action: () => roomSubmenu.Show())
+                .Add("Courses", action: () => courseSubmenu.Show())
+                .Add("Exit", action: ConsoleMenu.Close);
 
             mainMenu.Show();
+            #endregion mainMenu
         }
 
         public static void ConsoleContinuation()
