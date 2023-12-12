@@ -81,6 +81,7 @@ namespace BH2KFM_HFT_2023241.Client
             {
                 int id = int.Parse(Console.ReadLine());
                 Program.rest.Delete(id, model);
+                Console.WriteLine($"{model} deleted successfully!");
             }
             catch (Exception e)
             {

@@ -28,7 +28,7 @@ namespace BH2KFM_HFT_2023241.Client
                 {
                     try
                     {
-                        Console.WriteLine("Average credit value of currently stored subjects: " + rest.GetSingle<double>("SubjectStat/AverageCreditValue"));
+                        Console.WriteLine("Average credit value of subjects: " + rest.GetSingle<double>("SubjectStat/AverageCreditValue"));
                     }
                     catch (Exception e)
                     {
@@ -197,7 +197,7 @@ namespace BH2KFM_HFT_2023241.Client
                     try
                     {
                         int id = int.Parse(Console.ReadLine());
-                        Console.WriteLine("This course is " + rest.GetSingle<int>($"CourseStat/CourseLengthMinutes/{id}" + " minutes long."));
+                        Console.WriteLine("This course is " + rest.GetSingle<int>($"CourseStat/CourseLengthMinutes/{id}") + " minutes long.");
                     }
                     catch (Exception e)
                     {
