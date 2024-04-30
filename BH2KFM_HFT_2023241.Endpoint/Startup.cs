@@ -1,3 +1,4 @@
+using BH2KFM_HFT_2023241.Endpoint.Services;
 using BH2KFM_HFT_2023241.Logic;
 using BH2KFM_HFT_2023241.Models;
 using BH2KFM_HFT_2023241.Repository;
@@ -40,6 +41,7 @@ namespace BH2KFM_HFT_2023241.Endpoint
             services.AddTransient<ISubjectLogic, SubjectLogic>();
             services.AddTransient<ICourseLogic, CourseLogic>();
 
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -74,6 +76,7 @@ namespace BH2KFM_HFT_2023241.Endpoint
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<SignalRHub>("/hub");
             });
         }
     }
