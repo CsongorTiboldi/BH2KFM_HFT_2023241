@@ -24,5 +24,27 @@ namespace BH2KFM_HFT_2023241.WpfClient
         {
             InitializeComponent();
         }
+
+        private void EditorSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (EditorSelector.SelectedIndex == 0)
+            {
+                SubjectGrid.Visibility = Visibility.Visible;
+                RoomGrid.Visibility = Visibility.Hidden;
+                CourseGrid.Visibility = Visibility.Hidden;
+            }
+            else if (EditorSelector.SelectedIndex == 1)
+            {
+                SubjectGrid.Visibility = Visibility.Hidden;
+                RoomGrid.Visibility = Visibility.Visible;
+                CourseGrid.Visibility = Visibility.Hidden;
+            }
+            else if (EditorSelector.SelectedIndex == 2)
+            {
+                SubjectGrid.Visibility = Visibility.Hidden;
+                RoomGrid.Visibility = Visibility.Hidden;
+                CourseGrid.Visibility = Visibility.Visible;
+            }
+        }
     }
 }

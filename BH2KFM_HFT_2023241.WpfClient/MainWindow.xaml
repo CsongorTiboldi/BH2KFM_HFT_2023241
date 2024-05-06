@@ -5,8 +5,115 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BH2KFM_HFT_2023241.WpfClient"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Lecture Editor" Height="360" Width="766">
+    <Window.DataContext>
+        <local:MainWindowViewModel/>
+    </Window.DataContext>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height=".15*"/>
+        </Grid.RowDefinitions>
+
+        <!--Subjects-->
+        <Grid x:Name="SubjectGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Subjects}" SelectedItem="{Binding SelectedSubject}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Column="1">
+                <Label Content="Name" Background="LightBlue" Padding="10"/>
+                <TextBox Text="{Binding SelectedSubject.Name}" Padding="10" Margin="0,0,0,20"/>
+                <Button Content="Create Subject" Command="{Binding CreateSubjectCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Delete Subject" Command="{Binding DeleteSubjectCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Update Subject" Command="{Binding UpdateSubjectCommand}" Margin="20,2" Padding="5"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Label Content="{Binding AverageCreditValue}" ContentStringFormat="Average credit value: {0}"/>
+                <Label Content="{Binding MostCreditSemester}" ContentStringFormat="Semester with the largest sum of credits: {0}"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!--Rooms-->
+        <Grid x:Name="RoomGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Rooms}" SelectedItem="{Binding SelectedRoom}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Capacity}" ContentStringFormat="Room with capacity of {0}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Column="1">
+                <Label Content="Capacity" Background="LightBlue" Padding="10"/>
+                <TextBox Text="{Binding SelectedRoom.Capacity}" Padding="10" Margin="0,0,0,20"/>
+                <Button Content="Create Room" Command="{Binding CreateRoomCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Delete Room" Command="{Binding DeleteRoomCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Update Room" Command="{Binding UpdateRoomCommand}" Margin="20,2" Padding="5"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Label Content="{Binding MaxCapacity}" ContentStringFormat="Maximum possible room capacity: {0}"/>
+            </StackPanel>
+        </Grid>
+
+
+        <!--Courses-->
+        <Grid x:Name="CourseGrid" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <ListBox ItemsSource="{Binding Courses}" SelectedItem="{Binding SelectedCourse}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Label Content="{Binding Location}" ContentStringFormat="Course in room number {0}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <StackPanel Grid.Column="1">
+                <Label Content="Location" Background="LightBlue" Padding="10"/>
+                <TextBox Text="{Binding SelectedCourse.Location}" Padding="10" Margin="0,0,0,20"/>
+                <Button Content="Create Course" Command="{Binding CreateCourseCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Delete Course" Command="{Binding DeleteCourseCommand}" Margin="20,2" Padding="5"/>
+                <Button Content="Update Course" Command="{Binding UpdateCourseCommand}" Margin="20,2" Padding="5"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <Label Content="{Binding AverageCourseLength}" ContentStringFormat="A course is {0} minutes long on average"/>
+                <Label Content="{Binding MaxCourseLength}" ContentStringFormat="The longest course is {0} minutes long"/>
+                <Label Content="{Binding AnyOverlapping}" ContentStringFormat="Are there any overlapping courses: {0}"/>
+            </StackPanel>
+        </Grid>
+
+
+        <ComboBox
+            Grid.Row="3"
+            x:Name="EditorSelector"
+            SelectedIndex="0"
+            VerticalContentAlignment="Center"
+            SelectionChanged="EditorSelector_SelectionChanged"
+            FontWeight="Bold"
+            Margin="0,10,0,0"
+        >
+            <ComboBoxItem x:Name="subject">Subjects</ComboBoxItem>
+            <ComboBoxItem x:Name="room">Rooms</ComboBoxItem>
+            <ComboBoxItem x:Name="course">Courses</ComboBoxItem>
+        </ComboBox>
     </Grid>
 </Window>
