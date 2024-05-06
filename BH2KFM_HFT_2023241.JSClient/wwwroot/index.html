@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Lecture Editor</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <div id="subjectForm">
+        <label>Subject name:</label>
+        <input type="text" id="subjectname"/>
+        <button onclick="createSubject()">Add</button>
+    </div>
+
+
+    <table id="subjects">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>[Actions]</th>
+            </tr>
+        </thead>
+        <tbody id="subjectResult"></tbody>
+    </table>
+
+    <script src="script.js"></script>
+</body>
+</html>
