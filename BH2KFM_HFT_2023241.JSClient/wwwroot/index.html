@@ -7,24 +7,130 @@
 </head>
 <body>
 
-    <div id="subjectForm">
-        <label>Subject name:</label>
-        <input type="text" id="subjectname"/>
-        <button onclick="createSubject()">Add</button>
+    <!--Subjects-->
+    <div class="entity">
+        <h1>Subjects</h1>
+
+        <div class="add-form" id="subjectForm">
+            <h3>Add subject</h3>
+            <label>Name:</label>
+            <input type="text" id="subjectname" />
+            <button onclick="createSubject()">Add</button>
+        </div>
+
+        <div class="editor" id="subjectUpdateForm">
+            <h3>Edit subject</h3>
+            <label>Name:</label><input type="text" id="subjectnameupdate" /><br />
+            <label>Credits:</label><input type="text" id="subjectcreditupdate" /><br />
+            <label>Semester:</label><input type="text" id="subjectsemesterupdate" /><br />
+            <br />
+            <button onclick="updateSubject()">Save</button>
+            <button onclick="updateSubjectCancel()">Cancel</button>
+        </div>
+
+        <div class="table-container">
+            <table id="subjects">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Credits</th>
+                        <th>Semester</th>
+                        <th>[Actions]</th>
+                    </tr>
+                </thead>
+                <tbody id="subjectResult"></tbody>
+            </table>
+        </div>
+
+        <h3>Stats</h3>
+        <ul id="subjectNonCrud"></ul>
     </div>
 
 
-    <table id="subjects">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>[Actions]</th>
-            </tr>
-        </thead>
-        <tbody id="subjectResult"></tbody>
-    </table>
+    <!--Rooms-->
+    <div class="entity">
+        <h1>Rooms</h1>
 
+        <div class="add-form" id="roomForm">
+            <h3>Add room</h3>
+            <label>Capacity:</label>
+            <input type="text" id="roomcapacity" />
+            <button onclick="createRoom()">Add</button>
+        </div>
+
+        <div class="editor" id="roomUpdateForm">
+            <h3>Edit room</h3>
+            <label>Capacity:</label><input type="text" id="roomcapacityupdate" /><br />
+            <label>Has a projector:</label><input type="checkbox" id="roomprojectorupdate" /><br />
+            <br />
+            <button onclick="updateRoom()">Save</button>
+            <button onclick="updateRoomCancel()">Cancel</button>
+        </div>
+
+        <div class="table-container">
+            <table id="rooms">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Capacity</th>
+                        <th>Has a projector</th>
+                        <th>[Actions]</th>
+                    </tr>
+                </thead>
+                <tbody id="roomResult"></tbody>
+            </table>
+        </div>
+
+        <h3>Stats</h3>
+        <ul id="roomNonCrud"></ul>
+    </div>
+    
+
+    <!--Courses-->
+    <div class="entity">
+        <h1>Courses</h1>
+
+        <div class="add-form" id="courseForm">
+            <h3>Add course</h3>
+            <label>Location:</label>
+            <input type="text" id="courselocation" />
+            <button onclick="createCourse()">Add</button>
+        </div>
+
+        <div class="editor" id="courseUpdateForm">
+            <h3>Edit course</h3>
+            <label>Location:</label><input type="text" id="courselocationupdate" /><br />
+            <label>Start:</label><input type="datetime-local" id="coursestartupdate" /><br />
+            <label>End:</label><input type="datetime-local" id="courseendupdate" /><br />
+            <label>Subject (by ID):</label><input type="text" id="coursesubjectupdate" /><br />
+            <br />
+            <button onclick="updateCourse()">Save</button>
+            <button onclick="updateCourseCancel()">Cancel</button>
+        </div>
+
+        <div class="table-container">
+            <table id="courses">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Location</th>
+                        <th>Start</th>
+                        <th>End</th>
+                        <th>Subject</th>
+                        <th>[Actions]</th>
+                    </tr>
+                </thead>
+                <tbody id="courseResult"></tbody>
+            </table>
+        </div>
+
+        <h3>Stats</h3>
+        <ul id="courseNonCrud"></ul>
+    </div>
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
